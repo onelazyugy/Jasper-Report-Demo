@@ -1,0 +1,39 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.6.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.primerica.saletools.jpreport'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-actuator')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+	compile group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.1.1'
+	// https://mvnrepository.com/artifact/com.lowagie/itext
+	compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
+	// https://mvnrepository.com/artifact/org.olap4j/olap4j
+	compile group: 'org.olap4j', name: 'olap4j', version: '1.2.0'
+
+
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
