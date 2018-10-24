@@ -29,7 +29,7 @@ public class JasperReportController {
     }
 
     @RequestMapping(value = "/jasper", method = RequestMethod.GET)
-    public String demo() {
+    public String demo2() {
         return "Hello Jasper Report";
     }
 
