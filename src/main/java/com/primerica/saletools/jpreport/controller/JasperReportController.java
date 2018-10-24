@@ -19,6 +19,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class JasperReportController {
+    // tell where to put the generated pdf file on your local machine, can be change is src/main/resource/application.properties file
     @Value("${pdfoutput}")
     private String pdfOutput;
     private ReportService jasperReportService;
@@ -33,7 +34,7 @@ public class JasperReportController {
         return "Hello Jasper Report";
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")// add your UI domain
     @RequestMapping(value = "/demo/{username}", method = RequestMethod.GET)
     public String demo(@PathVariable String username) throws ApplicationException {
         try {
@@ -49,7 +50,7 @@ public class JasperReportController {
         return "successfully generated the pdf report";
     }
 
-    @CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")// add your UI domain
     @RequestMapping(value = "/report/{username}", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity<byte[]> report(@PathVariable String username) throws ApplicationException {
         String jasperTemplate = "Simple_Blue.jasper";
