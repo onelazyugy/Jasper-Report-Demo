@@ -6,6 +6,7 @@ import com.primerica.saletools.jpreport.service.ReportService;
 import com.primerica.saletools.jpreport.util.JasperReportUtil;
 import net.sf.jasperreports.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,11 +19,18 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class JasperReportController {
+    @Value("${pdfoutput}")
+    private String pdfOutput;
     private ReportService jasperReportService;
 
     @Autowired
     public JasperReportController(JasperReportService jasperReportService) {
         this.jasperReportService = jasperReportService;
+    }
+
+    @RequestMapping(value = "/jasper", method = RequestMethod.GET)
+    public String demo() {
+        return "Hello Jasper Report";
     }
 
     @CrossOrigin(origins = "*")
@@ -34,8 +42,7 @@ public class JasperReportController {
             params.put("username", username);
 
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
-            String path = "/Users/ap789/Desktop/Jasper/demo/output/Demo.pdf";
-            JasperExportManager.exportReportToPdfFile(jasperPrint,path);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, this.pdfOutput.concat("Demo.pdf"));
         } catch (Exception e) {
             throw new ApplicationException("999", e.getMessage());
         }
